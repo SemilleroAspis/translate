@@ -42,7 +42,7 @@ const App: React.FC = () => {
     } else {
       setCurrentParagraph(transcript);
     }
-    translateText(transcript); // Translate the transcript as it updates
+    translateText(transcript);
   }, [transcript, resetTranscript]);
 
   const translateText = async (text: string) => {
@@ -220,15 +220,11 @@ const App: React.FC = () => {
             fontWeight: fontWeight
           }}
         >
-          {paragraphs.slice(-1).map((paragraph, index) => (
-            <p key={index}>{paragraph.split(' ').map((word, i) => (
-              <span key={i} className="highlight">{word}</span>
-            ))}</p>
+          {paragraphs.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
           ))}
           {currentParagraph && (
-            <p>{currentParagraph.split(' ').map((word, i) => (
-              <span key={i} className="highlight">{word}</span>
-            ))}</p>
+            <p>{currentParagraph}</p>
           )}
         </div>
         <h2>Translated Text</h2>
@@ -242,15 +238,11 @@ const App: React.FC = () => {
             fontWeight: fontWeight
           }}
         >
-          {translatedParagraphs.slice(-2).map((paragraph, index) => (
-            <p key={index}>{paragraph.split(' ').map((word, i) => (
-              <span key={i} className="highlight">{word}</span>
-            ))}</p>
+          {translatedParagraphs.map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
           ))}
           {currentTranslation && (
-            <p>{currentTranslation.split(' ').map((word, i) => (
-              <span key={i} className="highlight">{word}</span>
-            ))}</p>
+            <p>{currentTranslation}</p>
           )}
         </div>
       </div>
