@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import './App.css';
 
@@ -14,14 +14,39 @@ const App: React.FC = () => {
   const [fontColor, setFontColor] = useState<string>('#000000');
   const [borderColor, setBorderColor] = useState<string>('#000000');
   const [fontWeight, setFontWeight] = useState<number>(400);
-  const [apiKey, setApiKey] = useState<string>('');
+  const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('apiKey') || '');
 
   const {
     transcript,
     listening,
     resetTranscript,
-    browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
+
+  const translateText = useCallback(async (text: string) => {
+    if (!apiKey) {
+      console.error('API key is missing');
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://script.google.com/macros/s/${apiKey}/exec?text=${encodeURIComponent(text)}&source=${language}&target=${translateLanguage}`, {
+        mode: 'cors'
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const translatedText = await response.text();
+      setCurrentTranslation(translatedText);
+    } catch (error) {
+      console.error('Error translating text: ', error);
+    }
+  }, [apiKey, language, translateLanguage]);
+
+  useEffect(() => {
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Tu navegador no soporta el reconocimiento de voz.');
+    }
+  }, []);
 
   useEffect(() => {
     if (listening) {
@@ -43,35 +68,26 @@ const App: React.FC = () => {
       setCurrentParagraph(transcript);
     }
     translateText(transcript); // Translate the transcript as it updates
-  }, [transcript, resetTranscript]);
+  }, [transcript, resetTranscript, translateText]);
 
-  const translateText = async (text: string) => {
-    if (!apiKey) {
-      console.error('API key is missing');
-      return;
-    }
-
-    try {
-      const response = await fetch(`https://script.google.com/macros/s/AKfycbxpU8VukSB2VetQDMA4BqoWFAulezTNkevklI0EAKMiHT9Sr6aU-0a2rKkuk237HXTT/exec?text=${encodeURIComponent(text)}&source=${language}&target=${translateLanguage}&key=${apiKey}`, {
-        mode: 'cors'
-      });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const translatedText = await response.text();
-      setCurrentTranslation(translatedText);
-    } catch (error) {
-      console.error('Error translating text: ', error);
-    }
-  };
-
-  if (!browserSupportsSpeechRecognition) {
+  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
   const startRecognition = () => {
+    if (!apiKey) {
+      alert('Please enter your API key before starting the recognition.');
+      return;
+    }
+    localStorage.setItem('apiKey', apiKey);
     resetTranscript();
-    SpeechRecognition.startListening({ continuous: true, language: 'es-ES' });
+    SpeechRecognition.startListening({ continuous: true, language: language })
+      .catch(err => {
+        console.error('Error starting recognition:', err);
+        if (err.name === 'not-allowed') {
+          alert('Microphone access was not allowed. Please check your browser settings.');
+        }
+      });
     console.log('Started listening with language: ', language);
   };
 
@@ -113,6 +129,7 @@ const App: React.FC = () => {
 
   const handleApiKeyChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setApiKey(event.target.value);
+    console.log('API Key set:', event.target.value);
   };
 
   return (
