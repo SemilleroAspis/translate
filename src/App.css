@@ -1,0 +1,72 @@
+.App {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+h2 {
+  margin-top: 20px;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+label {
+  margin-right: 10px;
+}
+
+select, input[type="range"], input[type="color"] {
+  padding: 5px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.App {
+  text-align: center;
+}
+
+.settings {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.column {
+  margin: 0 10px;
+}
+
+.transcript-container {
+  margin-top: 20px;
+}
+
+.transcript-box {
+  height: 4em; /* Adjust height as necessary to fit two lines of text */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: rgb(0, 255, 0); /* Green background */
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.transcript-box p {
+  margin: 0;
+  padding: 0;
+}
+
+.highlight {
+  background-color: grey;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+
