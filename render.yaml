@@ -1,5 +1,0 @@
-services:
-  - type: static
-    name: translate-app
-    env: static
-    staticPublishPath: build
