@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [fontColor, setFontColor] = useState<string>('#000000');
   const [borderColor, setBorderColor] = useState<string>('#000000');
   const [fontWeight, setFontWeight] = useState<number>(400);
-  const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('apiKey') || '');
+  const [apiKey, setApiKey] = useState<string>('');
 
   const {
     transcript,
@@ -42,7 +42,7 @@ const App: React.FC = () => {
     } else {
       setCurrentParagraph(transcript);
     }
-    translateText(transcript);
+    translateText(transcript); // Translate the transcript as it updates
   }, [transcript, resetTranscript]);
 
   const translateText = async (text: string) => {
@@ -52,52 +52,32 @@ const App: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`https://script.google.com/macros/s/${apiKey}/exec?text=${encodeURIComponent(text)}&source=${language}&target=${translateLanguage}`, {
+      const response = await fetch(`https://script.google.com/macros/s/AKfycbxpU8VukSB2VetQDMA4BqoWFAulezTNkevklI0EAKMiHT9Sr6aU-0a2rKkuk237HXTT/exec?text=${encodeURIComponent(text)}&source=${language}&target=${translateLanguage}&key=${apiKey}`, {
         mode: 'cors'
       });
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       const translatedText = await response.text();
-      setTranslatedParagraphs(prevParagraphs => [...prevParagraphs, translatedText]);
-      setCurrentTranslation('');
+      setCurrentTranslation(translatedText);
     } catch (error) {
       console.error('Error translating text: ', error);
     }
   };
 
-  const checkPermissions = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      console.log('Microphone permissions granted.');
-      stream.getTracks().forEach(track => track.stop());
-    } catch (error) {
-      console.error('Microphone permissions denied:', error);
-    }
-  };
+  if (!browserSupportsSpeechRecognition) {
+    return <span>Browser doesn't support speech recognition.</span>;
+  }
 
-  const startRecognition = async () => {
-    console.log('Starting recognition...');
-    await checkPermissions();
-    localStorage.setItem('apiKey', apiKey);
+  const startRecognition = () => {
     resetTranscript();
-    SpeechRecognition.startListening({ continuous: true, language: 'es-ES' })
-      .then(() => {
-        console.log('Started listening with language: ', language);
-      })
-      .catch((error) => {
-        console.error('Error starting listening: ', error);
-      });
+    SpeechRecognition.startListening({ continuous: true, language: 'es-ES' });
+    console.log('Started listening with language: ', language);
   };
 
   const stopRecognition = () => {
-    SpeechRecognition.stopListening()
-      .then(() => {
-        console.log('Stopped listening');
-      })
-      .catch((error) => {
-        console.error('Error stopping listening: ', error);
-      });
+    SpeechRecognition.stopListening();
+    console.log('Stopped listening');
   };
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -239,11 +219,15 @@ const App: React.FC = () => {
             fontWeight: fontWeight
           }}
         >
-          {paragraphs.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
+          {paragraphs.slice(-1).map((paragraph, index) => (
+            <p key={index}>{paragraph.split(' ').map((word, i) => (
+              <span key={i} className="highlight">{word}</span>
+            ))}</p>
           ))}
           {currentParagraph && (
-            <p>{currentParagraph}</p>
+            <p>{currentParagraph.split(' ').map((word, i) => (
+              <span key={i} className="highlight">{word}</span>
+            ))}</p>
           )}
         </div>
         <h2>Translated Text</h2>
@@ -257,11 +241,15 @@ const App: React.FC = () => {
             fontWeight: fontWeight
           }}
         >
-          {translatedParagraphs.map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
+          {translatedParagraphs.slice(-2).map((paragraph, index) => (
+            <p key={index}>{paragraph.split(' ').map((word, i) => (
+              <span key={i} className="highlight">{word}</span>
+            ))}</p>
           ))}
           {currentTranslation && (
-            <p>{currentTranslation}</p>
+            <p>{currentTranslation.split(' ').map((word, i) => (
+              <span key={i} className="highlight">{word}</span>
+            ))}</p>
           )}
         </div>
       </div>
