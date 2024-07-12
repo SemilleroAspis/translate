@@ -59,26 +59,45 @@ const App: React.FC = () => {
         throw new Error('Network response was not ok');
       }
       const translatedText = await response.text();
-      setCurrentTranslation(translatedText);
+      setTranslatedParagraphs(prevParagraphs => [...prevParagraphs, translatedText]);
+      setCurrentTranslation('');
     } catch (error) {
       console.error('Error translating text: ', error);
     }
   };
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Browser doesn't support speech recognition.</span>;
-  }
+  const checkPermissions = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      console.log('Microphone permissions granted.');
+      stream.getTracks().forEach(track => track.stop());
+    } catch (error) {
+      console.error('Microphone permissions denied:', error);
+    }
+  };
 
-  const startRecognition = () => {
+  const startRecognition = async () => {
+    console.log('Starting recognition...');
+    await checkPermissions();
     localStorage.setItem('apiKey', apiKey);
     resetTranscript();
-    SpeechRecognition.startListening({ continuous: true, language: 'es-ES' });
-    console.log('Started listening with language: ', language);
+    SpeechRecognition.startListening({ continuous: true, language: 'es-ES' })
+      .then(() => {
+        console.log('Started listening with language: ', language);
+      })
+      .catch((error) => {
+        console.error('Error starting listening: ', error);
+      });
   };
 
   const stopRecognition = () => {
-    SpeechRecognition.stopListening();
-    console.log('Stopped listening');
+    SpeechRecognition.stopListening()
+      .then(() => {
+        console.log('Stopped listening');
+      })
+      .catch((error) => {
+        console.error('Error stopping listening: ', error);
+      });
   };
 
   const handleLanguageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
