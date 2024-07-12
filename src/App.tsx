@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [fontColor, setFontColor] = useState<string>('#000000');
   const [borderColor, setBorderColor] = useState<string>('#000000');
   const [fontWeight, setFontWeight] = useState<number>(400);
-  const [apiKey, setApiKey] = useState<string>('');
+  const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('apiKey') || '');
 
   const {
     transcript,
@@ -52,7 +52,7 @@ const App: React.FC = () => {
     }
 
     try {
-      const response = await fetch(`https://script.google.com/macros/s/AKfycbxpU8VukSB2VetQDMA4BqoWFAulezTNkevklI0EAKMiHT9Sr6aU-0a2rKkuk237HXTT/exec?text=${encodeURIComponent(text)}&source=${language}&target=${translateLanguage}&key=${apiKey}`, {
+      const response = await fetch(`https://script.google.com/macros/s/${apiKey}/exec?text=${encodeURIComponent(text)}&source=${language}&target=${translateLanguage}`, {
         mode: 'cors'
       });
       if (!response.ok) {
@@ -70,6 +70,7 @@ const App: React.FC = () => {
   }
 
   const startRecognition = () => {
+    localStorage.setItem('apiKey', apiKey);
     resetTranscript();
     SpeechRecognition.startListening({ continuous: true, language: 'es-ES' });
     console.log('Started listening with language: ', language);
