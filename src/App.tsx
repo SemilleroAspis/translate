@@ -49,6 +49,25 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    // Solicitar permisos de micrófono al cargar la página
+    const requestMicrophonePermission = async () => {
+      try {
+        await navigator.mediaDevices.getUserMedia({ audio: true });
+        console.log('Microphone access granted.');
+      } catch (error) {
+        console.error('Error accessing microphone:', error);
+        if (error instanceof Error) {
+          if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+            alert('Microphone access was not allowed. Please check your browser settings.');
+          }
+        }
+      }
+    };
+
+    requestMicrophonePermission();
+  }, []);
+
+  useEffect(() => {
     if (listening) {
       console.log('Recognition started');
     } else {
@@ -82,10 +101,12 @@ const App: React.FC = () => {
     localStorage.setItem('apiKey', apiKey);
     resetTranscript();
     SpeechRecognition.startListening({ continuous: true, language: language })
-      .catch(err => {
-        console.error('Error starting recognition:', err);
-        if (err.name === 'not-allowed') {
-          alert('Microphone access was not allowed. Please check your browser settings.');
+      .catch(error => {
+        console.error('Error starting recognition:', error);
+        if (error instanceof Error) {
+          if (error.name === 'not-allowed') {
+            alert('Microphone access was not allowed. Please check your browser settings.');
+          }
         }
       });
     console.log('Started listening with language: ', language);
