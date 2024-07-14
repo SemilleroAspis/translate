@@ -1,0 +1,143 @@
+.HomePage {
+  .background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .background-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .fade-in {
+    opacity: 1;
+    z-index: 1;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .fade-out {
+    opacity: 0;
+    z-index: 0;
+    transition: opacity 1s ease-in-out;
+  }
+
+  .text-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    text-align: left;
+    position: relative;
+    padding-left: 50px;
+
+    .emoji {
+      width: 50px; /* Ajusta según sea necesario */
+      height: 50px; /* Ajusta según sea necesario */
+      margin-right: 20px; /* Ajusta según sea necesario */
+      border-radius: 50%; /* Hace que la imagen sea circular */
+      overflow: hidden; /* Asegura que cualquier contenido adicional se corte */
+
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+
+      &.fade-in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      &.fade-out {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    .emoji-0 { box-shadow: 0 0 10px #3EE1EA, 0 0 20px #3EE1EA, 0 0 30px #3EE1EA; }
+    .emoji-1 { box-shadow: 0 0 10px #CEECB7, 0 0 20px #CEECB7, 0 0 30px #CEECB7; }
+    .emoji-2 { box-shadow: 0 0 10px #61E14D, 0 0 20px #61E14D, 0 0 30px #61E14D; }
+    .emoji-3 { box-shadow: 0 0 10px #3160D2, 0 0 20px #3160D2, 0 0 30px #3160D2; }
+    .emoji-4 { box-shadow: 0 0 10px #C84CC6, 0 0 20px #C84CC6, 0 0 30px #C84CC6; }
+    .emoji-5 { box-shadow: 0 0 10px #216A40, 0 0 20px #216A40, 0 0 30px #216A40; }
+    .emoji-6 { box-shadow: 0 0 10px #39487B, 0 0 20px #39487B, 0 0 30px #39487B; }
+    .emoji-7 { box-shadow: 0 0 10px #372C5A, 0 0 20px #372C5A, 0 0 30px #372C5A; }
+
+    .text-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      .title {
+        font-size: 3.5rem; // Ajusta según sea necesario
+        margin-bottom: 1rem;
+        font-family: 'Rowdies', sans-serif;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+
+        &.title-0 { color: #3EE1EA; text-shadow: 0 0 10px #216A40, 0 0 20px #216A40, 0 0 30px #216A40; }
+        &.title-1 { color: #CEECB7; text-shadow: 0 0 10px #372C5A, 0 0 20px #372C5A, 0 0 30px #372C5A; }
+        &.title-2 { color: #61E14D; text-shadow: 0 0 10px #372C5A, 0 0 20px #372C5A, 0 0 30px #372C5A; }
+        &.title-3 { color: #3160D2; text-shadow: 0 0 10px #CEECB7, 0 0 20px #C84CC6, 0 0 30px #CEECB7; }
+        &.title-4 { color: #372C5A; text-shadow: 0 0 10px #C84CC6, 0 0 20px #2d293a, 0 0 30px #C84CC6; }
+        &.title-5 { color: #216A40; text-shadow: 0 0 10px #CEECB7, 0 0 20px #C84CC6, 0 0 30px #CEECB7; }
+        &.title-6 { color: #39487B; text-shadow: 0 0 10px #61E14D, 0 0 20px #C84CC6, 0 0 30px #61E14D; }
+        &.title-7 { color: #372C5A; text-shadow: 0 0 10px #3EE1EA, 0 0 20px #372C5A, 0 0 30px #3EE1EA; }
+
+        &.fade-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        &.fade-out {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+      }
+
+      .content {
+        font-size: 1.8rem; // Ajusta según sea necesario
+        font-family: 'Chakra Petch', sans-serif;
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 1s ease-in-out 0.5s, transform 1s ease-in-out 0.5s; // Delay of 0.5s for content
+
+        &.content-0 { color: #3EE1EA; text-shadow: 0 0 10px #216A40, 0 0 20px #61E14D, 0 0 30px #216A40; }
+        &.content-1 { color: #CEECB7; text-shadow: 0 0 10px #372C5A, 0 0 20px #61E14D, 0 0 30px #372C5A; }
+        &.content-2 { color: #61E14D; text-shadow: 0 0 10px #372C5A, 0 0 20px #61E14D, 0 0 30px #372C5A; }
+        &.content-3 { color: #CEECB7; text-shadow: 0 0 10px #372C5A, 0 0 20px #C84CC6, 0 0 30px #372C5A; }
+        &.content-4 { color: #372C5A; text-shadow: 0 0 10px #C84CC6, 0 0 20px #61E14D, 0 0 30px #C84CC6; }
+        &.content-5 { color: #216A40; text-shadow: 0 0 10px #CEECB7, 0 0 20px #C84CC6, 0 0 30px #CEECB7; }
+        &.content-6 { color: #39487B; text-shadow: 0 0 10px #61E14D, 0 0 20px #C84CC6, 0 0 30px #61E14D; }
+        &.content-7 { color: #372C5A; text-shadow: 0 0 10px #3EE1EA, 0 0 20px #61E14D, 0 0 30px #3EE1EA; }
+
+        &.fade-in {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        &.fade-out {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+      }
+    }
+  }
+}

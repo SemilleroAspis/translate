@@ -1,0 +1,73 @@
+// src/styles/components/Navbar.scss
+
+$lightBlue: #3EE1EA;
+$lightGreen: #CEECB7;
+$green: #61E14D;
+$blue: #3160D2;
+$pink: #C84CC6;
+$darkGreen: #216A40;
+$blueGray: #39487B;
+$purple: #372C5A;
+$darkPurple: #623D58;
+$darkBlue: #21192F;
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem 1rem;
+  width: 100%;
+  height: 60px; /* Ajustar la altura del navbar */
+  background: transparent; /* Fondo transparente */
+  position: fixed; /* Fijar el navbar en la parte superior */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .navbar-link {
+    color: $green; /* Color del texto del enlace */
+    text-decoration: none;
+    font-family: 'Righteous', sans-serif;
+    font-weight: 400;
+    font-size: 1.8rem;
+    text-shadow: 0 0 5px $green, 0 0 10px $purple, 0 0 20px $purple, 0 0 40px $purple, 0 0 80px $purple;
+  
+    &:hover {
+      color: $purple;
+      text-shadow: 0 0 5px $purple, 0 0 10px $green, 0 0 20px $green, 0 0 40px $green, 0 0 80px $green;
+    }
+  }
+
+  .navbar-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      border-radius: 50%;
+      object-fit: cover;
+      height: 48px; /* Ajusta la altura del logo */
+      width: 48px;  /* Ajusta el ancho del logo */
+    }
+  }
+
+  .md\\:hidden {
+    display: none;
+  }
+
+  @media (max-width: 768px) {
+    .md\\:hidden {
+      display: block;
+    }
+  }
+}
