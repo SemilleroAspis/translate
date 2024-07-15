@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: react-app
+    env: static
+    staticPublishPath: build  # Ruta a tu directorio de construcción (build) para React
+    buildCommand: npm run build  # Comando para construir tu aplicación
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
