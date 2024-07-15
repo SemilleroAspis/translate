@@ -63,7 +63,6 @@ h1 {
 p {
   margin: 0;
   padding: 0;
- 
   padding: 10px; /* Añade padding a los párrafos */
   border-radius: 5px; /* Esquinas redondeadas */
 }
@@ -97,6 +96,10 @@ input[type="text"] {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.settings .column.center {
+  align-items: center;
 }
 
 .settings .column.right {
@@ -138,7 +141,6 @@ input[type="text"] {
 }
 
 .highlight {
-  background-color: grey;
   padding: 2px;
   border-radius: 4px;
   line-height: 1.5;

@@ -17,6 +17,7 @@ const Translate: React.FC = () => {
   const [highlightColor, setHighlightColor] = useState<string>(() => localStorage.getItem('highlightColor') || '#808080');
   const [highlightOpacity, setHighlightOpacity] = useState<number>(() => Number(localStorage.getItem('highlightOpacity')) || 100);
   const [apiKey, setApiKey] = useState<string>(() => localStorage.getItem('apiKey') || '');
+  const [fontWeight, setFontWeight] = useState<string>(() => localStorage.getItem('fontWeight') || '400');
 
   const {
     transcript,
@@ -34,11 +35,21 @@ const Translate: React.FC = () => {
       const response = await fetch(`https://script.google.com/macros/s/${apiKey}/exec?text=${encodeURIComponent(text)}&source=${language}&target=${translateLanguage}`, {
         mode: 'cors'
       });
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      const responseBody = await response.text();
+
+      console.log('Response Status Code:', response.status);
+      console.log('Response Body:', responseBody);
+
+      if (!response.ok || responseBody === "Missing required parameters.") {
+        throw new Error(`Network response was not ok: ${response.status} - ${responseBody}`);
       }
-      const translatedText = await response.text();
-      setCurrentTranslation(translatedText);
+
+      setCurrentTranslation(responseBody);
+
+      // Set a timeout to clear the translation after 2 minutes
+      setTimeout(() => {
+        setCurrentTranslation('');
+      }, 2 * 60 * 1000);
     } catch (error) {
       console.error('Error translating text: ', error);
     }
@@ -108,6 +119,7 @@ const Translate: React.FC = () => {
     localStorage.setItem('borderColor', borderColor);
     localStorage.setItem('highlightColor', highlightColor);
     localStorage.setItem('highlightOpacity', highlightOpacity.toString());
+    localStorage.setItem('fontWeight', fontWeight);
     
     resetTranscript();
     SpeechRecognition.startListening({ continuous: true, language: language })
@@ -170,13 +182,18 @@ const Translate: React.FC = () => {
     console.log('API Key set:', event.target.value);
   };
 
+  const handleFontWeightChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setFontWeight(event.target.value);
+    localStorage.setItem('fontWeight', event.target.value);
+  };
+
   const applyFontStyle = () => {
     return {
       fontFamily: selectedFont,
       fontSize: `${fontSize}px`,
       color: fontColor,
       textShadow: `-1px -1px 0 ${borderColor}, 1px -1px 0 ${borderColor}, -1px 1px 0 ${borderColor}, 1px 1px 0 ${borderColor}`,
-      fontWeight: '700'
+      fontWeight: fontWeight,
     };
   };
 
@@ -247,6 +264,15 @@ const Translate: React.FC = () => {
               onChange={handleFontSizeChange} 
             />
             <span>{fontSize}px</span>
+          </div>
+          <div>
+            <label className='Subtitle' htmlFor="font-weight">Font Weight: </label>
+            <select className='inputKey' id="font-weight" value={fontWeight} onChange={handleFontWeightChange}>
+              <option value="400">Normal</option>
+              
+              <option value="600">Bold</option>
+              
+            </select>
           </div>
         </div>
         <div className="column right">
