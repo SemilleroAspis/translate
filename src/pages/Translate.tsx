@@ -45,11 +45,6 @@ const Translate: React.FC = () => {
       }
 
       setCurrentTranslation(responseBody);
-
-      // Set a timeout to clear the translation after 2 minutes
-      setTimeout(() => {
-        setCurrentTranslation('');
-      }, 2 * 60 * 1000);
     } catch (error) {
       console.error('Error translating text: ', error);
     }
