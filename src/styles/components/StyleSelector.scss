@@ -4,6 +4,7 @@
   align-items: center;
   gap: 20px;
   justify-content: center;
+  
 
   .style-item {
     display: flex;
@@ -13,11 +14,13 @@
     label {
       font-size: 14px;
       margin-bottom: 5px;
+      
     }
 
     input[type="range"] {
       width: 100px;
       margin-right: 10px; /* Añade margen derecho para el espacio entre el input y el span */
+      
     }
 
     span {
@@ -34,6 +37,7 @@
       padding: 5px;
       border-radius: 5px;
       border: 1px solid #ccc;
+      color: #21192F;
     }
 
     .color-sample {

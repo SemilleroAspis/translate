@@ -113,6 +113,7 @@ $hoverBgColor: #FF5733; // Color de fondo al hacer hover
     &.apikey {
         height: auto; /* Ajusta esta altura según sea necesario */
         width: 120%;
+        color: #21192F;
     }
 
     &.chooselanguage {
@@ -162,6 +163,7 @@ $hoverBgColor: #FF5733; // Color de fondo al hacer hover
         border-radius: 5px;
         border: 1px solid $blue;
         font-family: 'Chakra Petch', sans-serif;
+        
     }
 
     .language-selection {
@@ -170,6 +172,7 @@ $hoverBgColor: #FF5733; // Color de fondo al hacer hover
         align-items: center;
         gap: 10px;
         margin-bottom: 10px; /* Espacio entre los dropdowns y el botón */
+        color:#21192F
     }
 
     .dropdown-container {

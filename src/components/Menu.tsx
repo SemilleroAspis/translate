@@ -216,6 +216,7 @@ const Menu: React.FC<MenuProps> = ({
                       <option value="en">English</option>
                       <option value="es">Spanish</option>
                       <option value="fr">French</option>
+                      <option value="it">Italian</option>
                       {/* Agrega más opciones de idioma según sea necesario */}
                     </select>
                   </div>
@@ -225,6 +226,7 @@ const Menu: React.FC<MenuProps> = ({
                       <option value="en">English</option>
                       <option value="es">Spanish</option>
                       <option value="fr">French</option>
+                      <option value="it">Italian</option>
                       {/* Agrega más opciones de idioma según sea necesario */}
                     </select>
                   </div>
