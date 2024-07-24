@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;700&family=Rowdies:wght@400;700&display=swap&family=Righteous:wght@400;700&display=swap&family=Roboto:wght@400;700&display=swap');
+
+$lightBlue: #3EE1EA;
+$lightGreen: #CEECB7;
+$green: #61E14D;
+$blue: #3160D2;
+$pink: #C84CC6;
+$darkGreen: #216A40;
+$blueGray: #39487B;
+$purple: #372C5A;
+$darkPurple: #623D58;
+$darkBlue: #21192F;
+$hoverBgColor: #FF5733; // Color de fondo al hacer hover
+
+@keyframes border-animation {
+  0% {
+    border-color: transparent;
+  }
+  25% {
+    border-top-color: $green;
+  }
+  50% {
+    border-top-color: $green;
+    border-right-color: $green;
+  }
+  75% {
+    border-top-color: $green;
+    border-right-color: $green;
+    border-bottom-color: $green;
+  }
+  100% {
+    border-color: $green;
+    background-color: $darkPurple;
+  }
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%; /* Ajusta el ancho del contenedor */
+    max-width: 900px;
+    margin: 0 auto;
+    transition: height 0.3s ease; /* Transición suave para la altura */
+    margin-top: 40px;
+}
+.menu {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: $darkBlue;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    flex-wrap: wrap; /* Permite que los elementos se ajusten al tamaño del contenedor */
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;  /* Asegura que el icono esté centrado */
+    margin: 10px;
+    background-color: $purple;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    position: relative;
+    width: 50px;
+    height: 50px;  /* Asegura un tamaño uniforme para el contenedor */
+    overflow: hidden;
+
+    .icon {
+        width: 24px; /* Ajusta el ancho del icono */
+        height: 24px; /* Ajusta la altura del icono */
+        transition: transform 0.3s ease;  /* Agrega una transición para el movimiento del ícono */
+    }
+
+    .menu-text {
+        font-size: 16px;
+        font-family: 'Chakra Petch', sans-serif;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+        opacity: 0;
+        margin-left: 10px;
+        position: absolute;  /* Posiciona el texto fuera del flujo normal */
+        left: 60px;  /* Ajusta la posición del texto */
+    }
+
+    &:hover {
+        width: 200px;  /* Ajusta este valor según sea necesario */
+        justify-content: flex-start;  /* Desplaza el icono a la izquierda cuando se hace hover */
+        
+        .icon {
+            transform: translateX(-1px);  /* Mueve el ícono a la izquierda */
+        }
+        
+        .menu-text {
+            opacity: 1;
+            transform: translateX(-30px);
+        }
+    }
+}
+
+.menu-content {
+    margin-top: 10px;
+    text-align: center;
+    transition: height 0.3s ease; /* Transición suave para la altura */
+
+    &.apikey {
+        height: auto; /* Ajusta esta altura según sea necesario */
+        width: 120%;
+    }
+
+    &.chooselanguage {
+        height: auto; /* Ajusta esta altura según sea necesario */
+    }
+
+    &.translateto {
+        height: auto; /* Ajusta esta altura según sea necesario */
+        width: 120%;
+    }
+    .prefered{
+        font-size: 20px;
+    }
+
+    &.choosefont {
+        height: auto; /* Ajusta esta altura según sea necesario */
+        width: 120%;
+        
+    }
+
+    &.style {
+        height: auto; /* Ajusta esta altura según sea necesario */
+    }
+
+    &.highlight {
+        height: auto; /* Ajusta esta altura según sea necesario */
+        width: 120%;
+        justify-content: center;
+    }
+  
+    h2 {
+        font-family: 'Rowdies', sans-serif;
+        color: $lightBlue;
+    }
+  
+    h3 {
+        font-family: 'Rowdies', sans-serif;
+        font-size: 30px;
+        color: $green;
+    }
+  
+    input, select {
+        padding: 10px;
+        font-size: 16px;
+        width: 200px;  /* Ajusta el ancho del input */
+        margin: 10px;
+        border-radius: 5px;
+        border: 1px solid $blue;
+        font-family: 'Chakra Petch', sans-serif;
+    }
+
+    .language-selection {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px; /* Espacio entre los dropdowns y el botón */
+    }
+
+    .dropdown-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .button-container {
+        margin-top: -80px;
+        padding-left: 10px;
+    }
+
+    .dropdown-columnr {
+        padding-right: 50px;
+    }
+    .dropdown-columnl {
+        padding-left: 50px;
+    }
+
+    .accept-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px 20px;
+        font-size: 16px;
+        border: 3px solid transparent;
+        border-radius: 5px;
+        background-color: $pink;
+        color: white;
+        cursor: pointer;
+        font-family: 'Chakra Petch', sans-serif;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+  
+        &:hover {
+            animation: border-animation 3s forwards;
+        }
+
+        .button-icon {
+            margin-right: 8px;
+            z-index: 1;
+        }
+
+        .button-text {
+            z-index: 1;
+        }
+    }
+}

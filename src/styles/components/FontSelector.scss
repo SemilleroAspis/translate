@@ -1,0 +1,52 @@
+$lightBlue: #3EE1EA;
+$lightGreen: #CEECB7;
+$green: #61E14D;
+$blue: #3160D2;
+$pink: #C84CC6;
+$darkGreen: #216A40;
+$blueGray: #39487B;
+$purple: #372C5A;
+$darkPurple: #623D58;
+$darkBlue: #21192F;
+$hoverBgColor: #FF5733;
+
+.font-selector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  
+    .font-select-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+    }
+  
+    .font-sample {
+      
+      font-family: inherit;
+      border-radius: 5px;
+      padding-left: 10px;
+      padding-right: 10px;
+      color: rgb(248, 245, 245);
+      
+      background-color: $green;
+      text-shadow: none;
+      font-size: 30px;
+      font-weight: 700;
+    }
+  
+    input[type="text"] {
+      padding: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+  
+    .button-container {
+      margin-top: -20px;
+    }
+  }
+  
+  

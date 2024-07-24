@@ -1,0 +1,49 @@
+$lightBlue: #3EE1EA;
+$lightGreen: #CEECB7;
+$green: #61E14D;
+$blue: #3160D2;
+$pink: #C84CC6;
+$darkGreen: #216A40;
+$blueGray: #39487B;
+$purple: #372C5A;
+$darkPurple: #623D58;
+$darkBlue: #21192F;
+$hoverBgColor: #FF5733;
+
+@keyframes border-pulse {
+  0% {
+    border-color: transparent;
+  }
+  25% {
+    border-color: $pink;
+  }
+  50% {
+    border-color: $pink;
+  }
+  75% {
+    border-color: $pink;
+  }
+  100% {
+    border-color: transparent;
+  }
+}
+
+.record-button {
+  background-color: $purple;
+  color: white;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  padding: 15px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: $hoverBgColor;
+  }
+
+  &.recording {
+    animation: border-pulse 1.5s infinite;
+  }
+}
